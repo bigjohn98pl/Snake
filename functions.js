@@ -17,6 +17,7 @@ function make_tile(col,row,size,element){
         template_colums = "";
         element.style.gridTemplateRows = template_rows;
     }
+    TILES = document.getElementsByClassName("tile").length;
 }
 
 //przypisuje podany atrybut atri oraz jego nazwe name w miejscu pos
@@ -34,7 +35,7 @@ function appear(ele, name, atri, pos){
 function move_id(value){
     var POS = value;
     console.log("val " +value);
-    document.querySelector("#player.tile").removeAttribute("id");
+    document.querySelector("[id^='player']").removeAttribute("id");
     POSITION[MOVE_COUNT] + POSITION.push(POS);
     MOVE_COUNT++;
     //ply.classList.add("player");
@@ -47,12 +48,24 @@ function move_id(value){
     }
     //console.log(POSITION);
     POSITION = POSITION.slice(-LENGHT_OF_PLAYER);
+    if(hasDuplicates(POSITION)){
+        LOST();
+     }
     for(i=0;i<POSITION.length;i++){
         ply_tile[POSITION[i]].classList.add("player");
-        ply_tile[POSITION[POSITION.length-1]].setAttribute("id","player");
-        if(hasDuplicates(POSITION)){
-            LOST();
-        }
+        HEAD = ply_tile[POSITION[POSITION.length-1]];
+        if (LAST_KEY === 37) { //left
+            HEAD.setAttribute("id","player_l");
+            }
+          else if (LAST_KEY === 38) { //up
+            HEAD.setAttribute("id","player_u");
+            }
+          else if (LAST_KEY === 39) { //right
+            HEAD.setAttribute("id","player_r");
+            }
+          else if (LAST_KEY === 40) { //down
+            HEAD.setAttribute("id","player_d");
+            }
     }
 }
 function increment(){
@@ -65,7 +78,7 @@ function increment(){
     }
     else if(LAST_KEY===38){ //up
         POSITION_START = POSITION_START-ROWS;
-        if(POSITION_START < 0){POSITION_START = POSITION_START+ (COLUMNS*ROWS); }
+        if(POSITION_START < 0){POSITION_START = POSITION_START+ TILES; }
         move_id(POSITION_START);
         get_apple();
     }
@@ -78,22 +91,22 @@ function increment(){
     }
     else if(LAST_KEY===40){ //down
         POSITION_START = POSITION_START+ROWS;
-        if(POSITION_START >= (COLUMNS*ROWS)){POSITION_START = POSITION_START- (COLUMNS*ROWS); }
+        if(POSITION_START >= TILES){POSITION_START = POSITION_START- TILES; }
         move_id(POSITION_START);
         get_apple();
     }
     setTimeout(increment, Interval);
 }
 function get_apple(){
-    var GETAPPLE = document.querySelector('#player.tile.apple');
+    var GETAPPLE = document.querySelector("[id^='player'].tile.apple");
     var IN_PLAYER = document.querySelector('.tile.apple.player');
     if (GETAPPLE != null) {
         SCORE= SCORE+10;
-        var NEW_RAND_POS = Math.floor(Math.random()*(COLUMNS*ROWS));
+        var NEW_RAND_POS = Math.floor(Math.random()*TILES);
         var loop =0;
-        while(POSITION.includes(NEW_RAND_POS) && TILES < (COLUMNS*ROWS) || loop === 20){
+        while(POSITION.includes(NEW_RAND_POS) && PLAYER_TILES < TILES || loop === 100){
             loop++;
-            NEW_RAND_POS = Math.floor(Math.random()*(COLUMNS*ROWS));
+            NEW_RAND_POS = Math.floor(Math.random()*TILES);
             if (IN_PLAYER != null) {
                 console.log("Collision");
                 console.log(NEW_RAND_POS);
@@ -103,7 +116,7 @@ function get_apple(){
         LENGHT_OF_PLAYER++;
         GETAPPLE.classList.add("player");
         GETAPPLE.classList.remove("apple");
-        if(TILES >= (COLUMNS*ROWS)){
+        if(PLAYER_TILES >= TILES){
             WIN();
             console.log("You Win!");
         }
@@ -117,9 +130,8 @@ function SHOW(){
     var licznik = document.getElementById("licznik");
     var BOX = document.getElementById("box");
     //var tiles = BOX.querySelectorAll(".tile:not(.player):not(#player)").length;
-    var tiles2 = BOX.querySelectorAll(".player, #player").length;
-    licznik.innerHTML = "Score: " + SCORE +" tiles: "+ tiles2 + " Moves: "+ MOVE_COUNT;
-    TILES = tiles2;
+    PLAYER_TILES = BOX.querySelectorAll(".player, #player").length;
+    licznik.innerHTML = "Score: " + SCORE +" tiles: "+ PLAYER_TILES + " Moves: "+ MOVE_COUNT;
 }
 setInterval(SHOW, 1);
 
@@ -149,11 +161,12 @@ function hasDuplicates(array) {
 }
 function reset(){
     POSITION=[];
+    MOVE_COUNT=0;
     LENGHT_OF_PLAYER = 1;
     SCORE = 0;
     Interval = 500;
-    POSITION_START = Math.floor(Math.random()*(COLUMNS*ROWS));
-    APPLE_POSITION = Math.floor(Math.random()*(COLUMNS*ROWS));
+    POSITION_START = Math.floor(Math.random()*TILES);
+    APPLE_POSITION = Math.floor(Math.random()*TILES);
     var tyles = document.getElementsByClassName("tile");
     for(i=0;i<tyles.length;i++){
             tyles[i].classList.remove("player");
@@ -162,7 +175,7 @@ function reset(){
         }
     appear(document.getElementsByClassName("tile"),"player","id",POSITION_START);
         while (APPLE_POSITION === POSITION_START){
-            APPLE_POSITION = Math.floor(Math.random()*(COLUMNS*ROWS));
+            APPLE_POSITION = Math.floor(Math.random()*TILES);
         }
         appear(document.getElementsByClassName("tile"),"apple","class",APPLE_POSITION);
 }

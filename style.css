@@ -1,41 +1,81 @@
 body{
     font-family:lato;
     font-size: 30px;
-    display: box;
+    display: flex;
     color: white;
-    background-color: gray;
+    background-color: black;
 }
 #box{
     display: grid;
     grid-template-columns:
     grid-template-rows:
     background-color: black;
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     margin:auto;
     border: 2px #A9A9A9 inset;
 }
 #licznik{
-    position: fixed;
     left:400px;
     top:0px;
+    z-index: 3;
 }
 .tile{
-    background-color: gray;
+    background-color: black;
     display: grid;
-    transition: all 1s;
+
 }
 
 #player{
     background-color: #262626;
     transform: scale(1);
-
+}
+#player_l{
+    background-color: #262626;
+    transform: scale(1);
+    animation: move_left 200ms 1 alternate;
+}
+#player_r{
+    background-color: #262626;
+    transform: scale(1);
+    animation: move_right 200ms 1 alternate;
+}
+#player_u{
+    background-color: #262626;
+    transform: scale(1);
+    animation: move_up 200ms 1 alternate;
+}
+#player_d{
+    background-color: #262626;
+    transform: scale(1);
+    animation: move_down 200ms 1 alternate;
 }
 .player{
     background-color: #404040;
-    transform: scale(0.6);
+    transform: scale(0.8);
+    transition: transform 300ms;
+    transition-timing-function: linear;
 
-
+}
+@keyframes move_right
+{
+	from {transform: translate(-50px);}
+	to {transform: translate(0px);}
+}
+@keyframes move_left
+{
+	from {transform: translate(50px);}
+	to {transform: translate(0px);}
+}
+@keyframes move_up
+{
+	from {transform: translate(0px,50px);}
+	to {transform: translate(0px,0px);}
+}
+@keyframes move_down
+{
+	from {transform: translate(0px,-50px);}
+	to {transform: translate(0px,0px);}
 }
 @keyframes glow
 {
@@ -44,20 +84,9 @@ body{
 	to {background-color: #008000;
 	        border: 3px #009900 inset}
 }
-@keyframes opacityOn {
-    0% {
-        opacity: 1;
-    }
-    10%{
-      opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
 .apple{
     background-color: #00cc00;
-    border-radius: 30px;
+    border-radius: 20px;
     border: 3px #009900 inset;
     transition: all 1s;
 
@@ -68,10 +97,10 @@ body{
 }
 #WIN{
     display: flex;
-    position: fixed;
-
 }
-
+#LOSE{
+    display: flex;
+}
 .buttons
 {
 	padding: 15px 5px 15px 5px;
