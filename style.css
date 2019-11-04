@@ -17,29 +17,25 @@ body{
 }
 #licznik{
     position: fixed;
-    left:300px;
+    left:400px;
+    top:0px;
 }
 .tile{
     background-color: gray;
     display: grid;
-    transition: all 100ms;
+    transition: all 1s;
 }
 
 #player{
     background-color: #262626;
-    transition: all 100ms;
+    transform: scale(1);
+
 }
 .player{
     background-color: #404040;
-    transition: all 100ms;
+    transform: scale(0.6);
 
 
-}
-
-#apple{
-    background-color: green;
-    border-radius: 30px;
-    transition: all 100ms;
 }
 @keyframes glow
 {
@@ -52,7 +48,7 @@ body{
     0% {
         opacity: 1;
     }
-    50%{
+    10%{
       opacity: 0;
     }
     100% {
@@ -63,6 +59,7 @@ body{
     background-color: #00cc00;
     border-radius: 30px;
     border: 3px #009900 inset;
+    transition: all 1s;
 
     animation-name: glow;
 	animation-duration: 1500ms;

@@ -1,14 +1,14 @@
 var BODY;
 var PLAYER;
-var COLUMNS =20;
-var ROWS = 20;
+var COLUMNS =10;
+var ROWS = 10;
 var POSITION_START = Math.floor(Math.random()*(COLUMNS*ROWS));
 var APPLE_POSITION = Math.floor(Math.random()*(COLUMNS*ROWS));
 var MOVE_COUNT=0;
 var POSITION = [];
 var TILES;
 var SCORE=0;
-var Interval=100;
+var Interval=800;
 var LAST_KEY = 39;
 var LENGHT_OF_PLAYER=1;
 window.onload = function () {

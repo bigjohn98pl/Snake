@@ -147,3 +147,22 @@ function LOST(){
 function hasDuplicates(array) {
     return (new Set(array)).size !== array.length;
 }
+function reset(){
+    POSITION=[];
+    LENGHT_OF_PLAYER = 1;
+    SCORE = 0;
+    Interval = 500;
+    POSITION_START = Math.floor(Math.random()*(COLUMNS*ROWS));
+    APPLE_POSITION = Math.floor(Math.random()*(COLUMNS*ROWS));
+    var tyles = document.getElementsByClassName("tile");
+    for(i=0;i<tyles.length;i++){
+            tyles[i].classList.remove("player");
+            tyles[i].classList.remove("apple");
+            tyles[i].removeAttribute("id");
+        }
+    appear(document.getElementsByClassName("tile"),"player","id",POSITION_START);
+        while (APPLE_POSITION === POSITION_START){
+            APPLE_POSITION = Math.floor(Math.random()*(COLUMNS*ROWS));
+        }
+        appear(document.getElementsByClassName("tile"),"apple","class",APPLE_POSITION);
+}
