@@ -15,7 +15,7 @@ var LENGHT_OF_PLAYER=1;
 window.onload = function () {
 
     BOX = document.getElementById("box");
-    make_tile(ROWS,COLUMNS,10,BOX);
+    make_tile(ROWS,COLUMNS,1,BOX);
 
     appear(document.getElementsByClassName("tile"),"player","id",POSITION_START);
     while (APPLE_POSITION === POSITION_START){

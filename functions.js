@@ -9,8 +9,9 @@ function make_tile(col,row,size,element){
         element.style.gridTemplateColumns = template_colums;
         tile = document.createElement("div") ;
         tile.setAttribute("class","tile");
-        //tile_p = document.createElement("p") ;
-        //tile.appendChild(tile_p);
+        //var tile_img = document.createElement("img") ;
+        //tile_img.setAttribute("src","snake_img.jpg");
+        //tile.appendChild(tile_img);
         element.appendChild(tile);
         }
         tile.classList.add("tile2");
