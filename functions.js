@@ -25,11 +25,9 @@ function make_tile(col,row,size,element){
 function appear(ele, name, atri, pos){
     if(atri === "class"){
         ele[pos].classList.add(name);
-        //console.log(name +pos);
     }
     else{
         ele[pos].setAttribute(atri,name);
-        //console.log(name +pos);
     }
 }
 
