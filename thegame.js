@@ -25,7 +25,7 @@ var LAST_KEYS = [39 ,39], LAST_KEY=39;
 window.onload = function () {
 
     BOX = document.getElementById("box");
-    make_tile(ROWS,COLUMNS,1,BOX);
+    make_tile(ROWS,COLUMNS,50,BOX);
 
     appear(document.getElementsByClassName("tile"),"player","id",POSITION_START);
     for(i=0;i<=POSITION.length-2;i++){
