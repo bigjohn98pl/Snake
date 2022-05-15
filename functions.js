@@ -121,28 +121,22 @@ function increment(){
     if(LAST_KEY === 37){ // left
         POSITION_START = POSITION_START-1;
         if(POSITION_START < 0){POSITION_START = POSITION_START+ ROWS; }
-        move_id(POSITION_START);
-        get_apple();
     }
     else if(LAST_KEY === 38){ //up
         POSITION_START = POSITION_START-ROWS;
         if(POSITION_START < 0){POSITION_START = POSITION_START+ TILES; }
-        move_id(POSITION_START);
-        get_apple();
     }
     else if(LAST_KEY === 39){ //right
         POSITION_START = POSITION_START+1;
         //if(POSITION_START >= (COLUMNS*ROWS)){POSITION_START = 0; }
         if(END_OF_ROW){POSITION_START = POSITION_START- ROWS; }
-        move_id(POSITION_START);
-        get_apple();
     }
     else if(LAST_KEY === 40){ //down
         POSITION_START = POSITION_START+ROWS;
         if(POSITION_START >= TILES){POSITION_START = POSITION_START- TILES; }
-        move_id(POSITION_START);
-        get_apple();
     }
+    move_id(POSITION_START);
+    get_apple();
     TIME_SET=setTimeout(increment, Interval);
     console.log(TIME_SET);
 }
@@ -176,11 +170,15 @@ function get_apple(){
 }
 
 function SHOW(){
-    var licznik = document.getElementById("licznik");
+    var score = document.getElementById("score");
+    var lenght = document.getElementById("length");
+    var moves = document.getElementById("moves");
     var BOX = document.getElementById("box");
     PLAYER_TILES = BOX.querySelectorAll("div[class*='player'], div[id*='player']").length;
+    score.innerHTML = SCORE;
+    lenght.innerHTML = PLAYER_TILES;
+    moves.innerHTML = MOVE_COUNT;
 
-    licznik.innerHTML = "Score: " + SCORE +" tiles: "+ PLAYER_TILES + " Moves: "+ MOVE_COUNT;
 }
 setInterval(SHOW, 1);
 
@@ -202,6 +200,7 @@ function WIN(){
         document.body.appendChild(WINNER);
 }
 function LOST(){
+        Interval = 100000;
         clearTimeout(TIME_SET);
         console.log(TIME_SET);
         var LOSER = document.createElement("div") ;
@@ -213,6 +212,10 @@ function LOST(){
 function hasDuplicates(array) {
     return (new Set(array)).size !== array.length;
 }
+function start(){
+    Interval = 200;
+    increment();
+}
 function reset(){
     POSITION_START = Math.floor(((COLUMNS*ROWS)/2)+ Math.floor(ROWS/3));
     POSITION = get_array(POSITION_START,LENGHT_OF_PLAYER);
@@ -220,7 +223,7 @@ function reset(){
     LENGHT_OF_PLAYER = 3;
     LAST_KEYS = [39 ,39], LAST_KEY=39;
     SCORE = 0;
-    Interval = 200;
+    Interval = 100000;
     APPLE_POSITION = Math.floor(Math.random()*TILES);
     var tyles = document.querySelectorAll(".tile");
 

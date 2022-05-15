@@ -18,14 +18,14 @@ var LENGHT_OF_PLAYER=3;
 var POSITION = get_array(POSITION_START,LENGHT_OF_PLAYER);
 var TILES,PLAYER_TILES,PLY_TILES;
 var SCORE=0;
-var Interval=200;
+var Interval=1000;
 var TIME_SET;
 var LAST_KEYS = [39 ,39], LAST_KEY=39;
 
 window.onload = function () {
 
     BOX = document.getElementById("box");
-    make_tile(ROWS,COLUMNS,1,BOX);
+    make_tile(ROWS,COLUMNS,50,BOX);
 
     appear(document.getElementsByClassName("tile"),"player","id",POSITION_START);
     for(i=0;i<=POSITION.length-2;i++){
