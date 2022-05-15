@@ -15,9 +15,33 @@
 
 <body><!-- oncontextmenu="return false;"-->
 	<div id="panel_l">
-		<div id="licznik"></div>
-		<button class="buttons" onclick="increment()">START</button>
-		<button class="buttons" onclick='reset(),del("LOSE")'>RESTART</button>
+		<table>
+			<thead>
+				<tr>
+					<th colspan="2">Licznik</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Score</td>
+					<td id="score"></td>
+				</tr>
+				<tr>
+					<td>length</td>
+					<td id="length"></td>
+				</tr>
+				<tr>
+					<td>moves</td>
+					<td id="moves"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<button class="buttons" onclick="start()">START</button> 
+			<br>
+			<button class="buttons" onclick='reset(),del("LOSE")'>RESTART</button>
+		</div>
+		
 	</div>
 
 	<div id="box"></div>
