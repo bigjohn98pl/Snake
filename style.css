@@ -27,6 +27,22 @@ img{
 .tile{
     background-color: black;
 }
+.tile-up{
+    background-color: black;
+    grid-area: up;
+}
+.tile-down{
+    background-color: black;
+    grid-area: down;
+}
+.tile-left{
+    background-color: black;
+    grid-area: left;
+}
+.tile-right{
+    background-color: black;
+    grid-area: right;
+}
 
 #player{
     background-image: //url("snake_img.jpg");
