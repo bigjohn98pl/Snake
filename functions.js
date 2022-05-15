@@ -1,5 +1,5 @@
 function make_tile(col,row,size,element){
-    size = size + "fr "
+    size = size + "px "
     var template_colums = "",template_rows = "";
     for(i=0;i<row;i++){
         template_rows=template_rows + size;
@@ -9,91 +9,152 @@ function make_tile(col,row,size,element){
         element.style.gridTemplateColumns = template_colums;
         tile = document.createElement("div") ;
         tile.setAttribute("class","tile");
-        //tile_p = document.createElement("p") ;
-        //tile.appendChild(tile_p);
         element.appendChild(tile);
         }
         tile.classList.add("tile2");
         template_colums = "";
         element.style.gridTemplateRows = template_rows;
     }
+    TILES = document.getElementsByClassName("tile").length;
 }
 
 //przypisuje podany atrybut atri oraz jego nazwe name w miejscu pos
 function appear(ele, name, atri, pos){
     if(atri === "class"){
         ele[pos].classList.add(name);
-        //console.log(name +pos);
     }
     else{
         ele[pos].setAttribute(atri,name);
-        //console.log(name +pos);
     }
 }
 
 function move_id(value){
     var POS = value;
-    console.log("val " +value);
-    document.querySelector("#player.tile").removeAttribute("id");
-    POSITION[MOVE_COUNT] + POSITION.push(POS);
+    LAST_KEYS = LAST_KEYS.slice(0,2);
+    //console.log(LAST_KEYS);
+    document.querySelector("[id^='player']").removeAttribute("id");
+    //zliczanie pozycji
+    POSITION + POSITION.push(POS);
     MOVE_COUNT++;
-    //ply.classList.add("player");
-    //ply.setAttribute("id","player");
-    //ply.removeAttribute("id");
-    var ply_tile = document.getElementsByClassName("tile");
-    for(i=0;i<POSITION.length;i++){
-        ply_tile[POSITION[i]].classList.remove("player");
-        ply_tile[POSITION[i]].removeAttribute("id");
-    }
-    //console.log(POSITION);
+    PLY_TILES = document.getElementsByClassName("tile");
+    HEAD = PLY_TILES[POSITION[(POSITION.length-1)]];
+    PLY_TILES[POSITION[0]].classList.remove("player_1","player_2","player_3_dl","player_3_dr","player_3_ul","player_3_ur");
+
+    //ucina wektor o ostatnia wartosc
     POSITION = POSITION.slice(-LENGHT_OF_PLAYER);
-    for(i=0;i<POSITION.length;i++){
-        ply_tile[POSITION[i]].classList.add("player");
-        ply_tile[POSITION[POSITION.length-1]].setAttribute("id","player");
-        if(hasDuplicates(POSITION)){
-            LOST();
-        }
+    if(hasDuplicates(POSITION)){
+        LOST();
+     }
+    //console.log("POS3 slice: "+POSITION);
+
+    if (LAST_KEY === 37) { //left
+        HEAD.setAttribute("id","player_l");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_2");
     }
+    else if (LAST_KEY === 38) { //up
+        HEAD.setAttribute("id","player_u");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_1");
+    }
+    else if (LAST_KEY === 39) { //right
+        HEAD.setAttribute("id","player_r");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_2");
+    }
+    else if (LAST_KEY === 40) { //down
+        HEAD.setAttribute("id","player_d");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_1");
+    }
+
+
+    if (LAST_KEYS[0] === 39 && LAST_KEYS[1] === 40) { // down-right
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.remove("player_1","player_2");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_3_ur");
+        //console.log("down-right");
+        //console.log(LAST_KEYS);
+    }
+    else if (LAST_KEYS[0] === 37 && LAST_KEYS[1] === 40){
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.remove("player_1","player_2");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_3_ul");
+        //console.log("down-left");
+        //console.log(LAST_KEYS);
+    }
+    else if (LAST_KEYS[0] === 39 && LAST_KEYS[1] === 38){ //up - right
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.remove("player_1","player_2");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_3_dr");
+        //console.log("up-right");
+        //console.log(LAST_KEYS);
+    }
+    else if (LAST_KEYS[0] === 37 && LAST_KEYS[1] === 38){
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.remove("player_1","player_2");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_3_dl");
+        //console.log("up-left");
+        //console.log(LAST_KEYS);
+    }
+    else if (LAST_KEYS[0] === 38 && LAST_KEYS[1] === 39) { // down-right
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.remove("player_1","player_2");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_3_ul");
+        //console.log("right-up");
+        //console.log(LAST_KEYS);
+    }
+    else if (LAST_KEYS[0] === 40 && LAST_KEYS[1] === 39){
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.remove("player_1","player_2");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_3_dl");
+        //console.log("right-down");
+        //console.log(LAST_KEYS);
+    }
+    else if (LAST_KEYS[0] === 38 && LAST_KEYS[1] === 37){ //up - right
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.remove("player_1","player_2");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_3_ur");
+        //console.log("left-up");
+        //console.log(LAST_KEYS);
+    }
+    else if (LAST_KEYS[0] === 40 && LAST_KEYS[1] === 37){
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.remove("player_1","player_2");
+        PLY_TILES[POSITION[(POSITION.length-2)]].classList.add("player_3_dr");
+        //console.log("left-down");
+        //console.log(LAST_KEYS);
+    }
+    LAST_KEYS[1] = LAST_KEYS[0];
 }
 function increment(){
-    var END_OF_ROW = document.querySelector('#player.tile.tile2');
-    if(LAST_KEY===37){ // left
+    var END_OF_ROW = document.querySelector('[id^="player"].tile.tile2');
+    if(LAST_KEY === 37){ // left
         POSITION_START = POSITION_START-1;
         if(POSITION_START < 0){POSITION_START = POSITION_START+ ROWS; }
         move_id(POSITION_START);
         get_apple();
     }
-    else if(LAST_KEY===38){ //up
+    else if(LAST_KEY === 38){ //up
         POSITION_START = POSITION_START-ROWS;
-        if(POSITION_START < 0){POSITION_START = POSITION_START+ (COLUMNS*ROWS); }
+        if(POSITION_START < 0){POSITION_START = POSITION_START+ TILES; }
         move_id(POSITION_START);
         get_apple();
     }
-    else if(LAST_KEY===39){ //right
+    else if(LAST_KEY === 39){ //right
         POSITION_START = POSITION_START+1;
         //if(POSITION_START >= (COLUMNS*ROWS)){POSITION_START = 0; }
         if(END_OF_ROW){POSITION_START = POSITION_START- ROWS; }
         move_id(POSITION_START);
         get_apple();
     }
-    else if(LAST_KEY===40){ //down
+    else if(LAST_KEY === 40){ //down
         POSITION_START = POSITION_START+ROWS;
-        if(POSITION_START >= (COLUMNS*ROWS)){POSITION_START = POSITION_START- (COLUMNS*ROWS); }
+        if(POSITION_START >= TILES){POSITION_START = POSITION_START- TILES; }
         move_id(POSITION_START);
         get_apple();
     }
-    setTimeout(increment, Interval);
+    TIME_SET=setTimeout(increment, Interval);
+    console.log(TIME_SET);
 }
 function get_apple(){
-    var GETAPPLE = document.querySelector('#player.tile.apple');
+    var GETAPPLE = document.querySelector("[id^='player'].tile.apple");
     var IN_PLAYER = document.querySelector('.tile.apple.player');
     if (GETAPPLE != null) {
         SCORE= SCORE+10;
-        var NEW_RAND_POS = Math.floor(Math.random()*(COLUMNS*ROWS));
+        var NEW_RAND_POS = Math.floor(Math.random()*TILES);
         var loop =0;
-        while(POSITION.includes(NEW_RAND_POS) && TILES < (COLUMNS*ROWS) || loop === 20){
+        while(POSITION.includes(NEW_RAND_POS) && PLAYER_TILES < TILES || loop === 100){
             loop++;
-            NEW_RAND_POS = Math.floor(Math.random()*(COLUMNS*ROWS));
+            NEW_RAND_POS = Math.floor(Math.random()*TILES);
             if (IN_PLAYER != null) {
                 console.log("Collision");
                 console.log(NEW_RAND_POS);
@@ -101,9 +162,9 @@ function get_apple(){
             }
         }
         LENGHT_OF_PLAYER++;
-        GETAPPLE.classList.add("player");
+        //GETAPPLE.classList.add("player");
         GETAPPLE.classList.remove("apple");
-        if(TILES >= (COLUMNS*ROWS)){
+        if(PLAYER_TILES >= TILES){
             WIN();
             console.log("You Win!");
         }
@@ -116,53 +177,86 @@ function get_apple(){
 function SHOW(){
     var licznik = document.getElementById("licznik");
     var BOX = document.getElementById("box");
-    //var tiles = BOX.querySelectorAll(".tile:not(.player):not(#player)").length;
-    var tiles2 = BOX.querySelectorAll(".player, #player").length;
-    licznik.innerHTML = "Score: " + SCORE +" tiles: "+ tiles2 + " Moves: "+ MOVE_COUNT;
-    TILES = tiles2;
+    PLAYER_TILES = BOX.querySelectorAll("div[class*='player'], div[id*='player']").length;
+    licznik.innerHTML = "Score: " + SCORE +" tiles: "+ PLAYER_TILES + " Moves: "+ MOVE_COUNT;
 }
 setInterval(SHOW, 1);
 
 function del(ID){
     var ele = document.getElementById(ID);
-    ele.remove();
+    if(ele === undefined){
+    console.log("tak");
+    }
+    else{
+        ele.remove();
+    }
 }
 function WIN(){
-        Interval = 60000
+        clearTimeout(TIME_SET);
+        console.log(TIME_SET);
         var WINNER = document.createElement("div") ;
         WINNER.setAttribute("id","WIN")
-        WINNER.innerHTML = "You Win! Score: "+(SCORE / MOVE_COUNT);
+        WINNER.innerHTML = "You Win! Score: "+(SCORE);
         document.body.appendChild(WINNER);
-        //setTimeout(del("WIN"), 900);
 }
 function LOST(){
-        Interval = 60000
+        clearTimeout(TIME_SET);
+        console.log(TIME_SET);
         var LOSER = document.createElement("div") ;
         LOSER.setAttribute("id","LOSE")
         LOSER.innerHTML = "You lost, Score: "+ SCORE;
         document.body.appendChild(LOSER);
-        //setTimeout(del("LOSE"), 900);
 }
 
 function hasDuplicates(array) {
     return (new Set(array)).size !== array.length;
 }
 function reset(){
-    POSITION=[];
-    LENGHT_OF_PLAYER = 1;
+    POSITION_START = Math.floor(((COLUMNS*ROWS)/2)+ Math.floor(ROWS/3));
+    POSITION = get_array(POSITION_START,LENGHT_OF_PLAYER);
+    MOVE_COUNT=0;
+    LENGHT_OF_PLAYER = 3;
+    LAST_KEYS = [39 ,39], LAST_KEY=39;
     SCORE = 0;
-    Interval = 500;
-    POSITION_START = Math.floor(Math.random()*(COLUMNS*ROWS));
-    APPLE_POSITION = Math.floor(Math.random()*(COLUMNS*ROWS));
-    var tyles = document.getElementsByClassName("tile");
+    Interval = 200;
+    APPLE_POSITION = Math.floor(Math.random()*TILES);
+    var tyles = document.querySelectorAll(".tile");
     for(i=0;i<tyles.length;i++){
-            tyles[i].classList.remove("player");
-            tyles[i].classList.remove("apple");
+            tyles[i].classList.remove("player_1","player_2","player_3_ul","player_3_ur","player_3_dl","player_3_dr",
+            "apple");
             tyles[i].removeAttribute("id");
         }
     appear(document.getElementsByClassName("tile"),"player","id",POSITION_START);
         while (APPLE_POSITION === POSITION_START){
-            APPLE_POSITION = Math.floor(Math.random()*(COLUMNS*ROWS));
+            APPLE_POSITION = Math.floor(Math.random()*TILES);
         }
         appear(document.getElementsByClassName("tile"),"apple","class",APPLE_POSITION);
+}
+
+function debug(){
+    var END_OF_ROW = document.querySelector('[id^="player"].tile.tile2');
+    if (LAST_KEY === 37) { //left
+            POSITION_START = POSITION_START-1;
+        if(POSITION_START < 0){POSITION_START = POSITION_START+ ROWS; }
+            move_id(POSITION_START);
+            get_apple();
+    }
+    if (LAST_KEY === 38) { //up
+            POSITION_START = POSITION_START-10;
+        if(POSITION_START < 0){POSITION_START = POSITION_START+ TILES; }
+            move_id(POSITION_START);
+            get_apple();
+    }
+    if (LAST_KEY === 39) { //right
+            POSITION_START = POSITION_START+1;
+        if(END_OF_ROW){POSITION_START = POSITION_START- ROWS; }
+            move_id(POSITION_START);
+            get_apple();
+    }
+    if (LAST_KEY === 40) { //down
+            POSITION_START = POSITION_START+10;
+        if(POSITION_START >= TILES){POSITION_START = POSITION_START- TILES; }
+            move_id(POSITION_START);
+            get_apple();
+    }
 }

@@ -1,9 +1,19 @@
 body{
     font-family:lato;
     font-size: 30px;
-    display: box;
+    display: flex;
     color: white;
-    background-color: gray;
+    background-color: black;
+}
+img{
+    width: 50px;
+    height: 50px;
+}
+#panel_l{
+    display:flex;
+    width: 300px;
+    height: 500px;
+    border: 2px #A9A9A9 inset;
 }
 #box{
     display: grid;
@@ -12,30 +22,118 @@ body{
     background-color: black;
     width: 500px;
     height: 500px;
-    margin:auto;
+    margin:0px;
     border: 2px #A9A9A9 inset;
 }
 #licznik{
-    position: fixed;
+    padding: 20px;
     left:400px;
     top:0px;
+    z-index: 3;
 }
 .tile{
-    background-color: gray;
-    display: grid;
-    transition: all 1s;
+    background-color: black;
+    display:grid;
 }
 
 #player{
-    background-color: #262626;
+    background-image: url("Skake3r.png");
+    //background-color: #262626;
+    background-size: 50px 50px;
     transform: scale(1);
 
 }
-.player{
+#player_l{
+    background-image: url("Skake3l.png");
+    background-size: 50px 50px;
+    //background-color: #262626;
+    transform: scale(1);
+    animation: move_left 350ms 1 alternate;
+}
+#player_r{
+    background-image: url("Skake3r.png");
+    background-size: 50px 50px;
+    //background-color: #262626;
+    transform: scale(1);
+    animation: move_right 350ms 1 alternate;
+}
+#player_u{
+    background-image: url("Skake3.png");
+    background-size: 50px 50px;
+    //background-color: #262626;
+    transform: scale(1);
+    animation: move_up 350ms 1 alternate;
+}
+#player_d{
+    background-image: url("Skake3d.png");
+    background-size: 50px 50px;
+    //background-color: #262626;
+    transform: scale(1);
+    animation: move_down 350ms 1 alternate;
+}
+.player_1{
+    background-image: url("SnakeT.png");
+    background-size: 50px 50px;
     background-color: #404040;
-    transform: scale(0.6);
+    transform: scale(0.54,1);
+    transition: transform 1ms;
+    transition-timing-function: linear;
 
-
+}
+.player_2{
+    background-image: url("SnakeT2.png");
+    background-size: 50px 50px;
+    background-color: #404040;
+    transform: scale(1,0.54);
+    transition: transform 1ms;
+    transition-timing-function: linear;
+}
+.player_3_dr{
+    background-image: url("ljkhl3_dr.png");
+}
+.player_3_dl{
+    background-image: url("ljkhl3_dl.png");
+}
+.player_3_ur{
+    background-image: url("ljkhl3_ur.png");
+}
+.player_3_ul{
+    background-image: url("ljkhl3_ul.png");
+}
+div[class*="player_3"]{
+    background-size: 50px 50px;
+    //background-color: red;
+    transform: scale(1);
+    transition: transform 1ms;
+    transition-timing-function: linear;
+}
+div[class*="player"]{
+    border-radius: 10px;
+    z-index: -2;
+}
+div[id*="player"]{
+    border-radius: 50px;
+    z-index: -1;
+}
+@keyframes move_right
+{
+	from {transform: translate(-60px);}
+	to {transform: translate(0px);}
+}
+@keyframes move_left
+{
+	from {transform: translate(60px);}
+	to {transform: translate(0px);}
+}
+@keyframes move_up
+{
+	from {transform: translate(0px,60px);}
+	to {transform: translate(0px,0px);}
+}
+@keyframes move_down
+{
+	from {transform: translate(0px,-60px);}
+	to {transform: translate(0px,0px);}
 }
 @keyframes glow
 {
@@ -44,20 +142,9 @@ body{
 	to {background-color: #008000;
 	        border: 3px #009900 inset}
 }
-@keyframes opacityOn {
-    0% {
-        opacity: 1;
-    }
-    10%{
-      opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
 .apple{
     background-color: #00cc00;
-    border-radius: 30px;
+    border-radius: 20px;
     border: 3px #009900 inset;
     transition: all 1s;
 
@@ -68,14 +155,14 @@ body{
 }
 #WIN{
     display: flex;
-    position: fixed;
-
 }
-
+#LOSE{
+    display: flex;
+}
 .buttons
 {
 	padding: 15px 5px 15px 5px;
-	margin: 15px 10px 20px 0px;
+	margin: 15px 10px 20px 10px;
 	background-color: #444444;
 	color: #20e31a;
 	border: none;
