@@ -30,6 +30,7 @@ function appear(ele, name, atri, pos){
 
 function move_id(value){
     var POS = value;
+
     LAST_KEYS = LAST_KEYS.slice(0,2);
     //console.log(LAST_KEYS);
     document.querySelector("[id^='player']").removeAttribute("id");
@@ -177,6 +178,7 @@ function SHOW(){
     score.innerHTML = SCORE;
     lenght.innerHTML = PLAYER_TILES;
     moves.innerHTML = MOVE_COUNT;
+
 }
 setInterval(SHOW, 1);
 
@@ -224,6 +226,7 @@ function reset(){
     Interval = 100000;
     APPLE_POSITION = Math.floor(Math.random()*TILES);
     var tyles = document.querySelectorAll(".tile");
+
     for(i=0;i<tyles.length;i++){
             tyles[i].classList.remove("player_1","player_2","player_3_ul","player_3_ur","player_3_dl","player_3_dr",
             "apple");
