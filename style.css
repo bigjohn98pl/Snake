@@ -8,6 +8,14 @@ body{
 img{
     width: 50px;
     height: 50px;
+
+}
+#panel_l{
+    display:flex;
+    width: 300px;
+    height: 500px;
+    border: 2px #A9A9A9 inset;
+
 }
 #box{
     display: grid;
@@ -16,85 +24,119 @@ img{
     background-color: black;
     width: 500px;
     height: 500px;
-    margin:auto;
+    margin:0px;
     border: 2px #A9A9A9 inset;
 }
 #licznik{
+    padding: 20px;
+
     left:400px;
     top:0px;
     z-index: 3;
 }
 .tile{
     background-color: black;
-}
-.tile-up{
-    background-color: black;
-    grid-area: up;
-}
-.tile-down{
-    background-color: black;
-    grid-area: down;
-}
-.tile-left{
-    background-color: black;
-    grid-area: left;
-}
-.tile-right{
-    background-color: black;
-    grid-area: right;
+    display:grid;
 }
 
 #player{
-    background-image: //url("snake_img.jpg");
-    background-color: #262626;
+    background-image: url("Skake3r.png");
+    //background-color: #262626;
+    background-size: 50px 50px;
     transform: scale(1);
 
 }
 #player_l{
-    background-color: #262626;
+    background-image: url("Skake3l.png");
+    background-size: 50px 50px;
+    //background-color: #262626;
     transform: scale(1);
-    animation: move_left 200ms 1 alternate;
+    animation: move_left 350ms 1 alternate;
 }
 #player_r{
-    background-color: #262626;
+    background-image: url("Skake3r.png");
+    background-size: 50px 50px;
+    //background-color: #262626;
     transform: scale(1);
-    animation: move_right 200ms 1 alternate;
+    animation: move_right 350ms 1 alternate;
 }
 #player_u{
-    background-color: #262626;
+    background-image: url("Skake3.png");
+    background-size: 50px 50px;
+    //background-color: #262626;
     transform: scale(1);
-    animation: move_up 200ms 1 alternate;
+    animation: move_up 350ms 1 alternate;
 }
 #player_d{
-    background-color: #262626;
+    background-image: url("Skake3d.png");
+    background-size: 50px 50px;
+    //background-color: #262626;
     transform: scale(1);
-    animation: move_down 200ms 1 alternate;
+    animation: move_down 350ms 1 alternate;
 }
-.player{
+.player_1{
+    background-image: url("SnakeT.png");
+    background-size: 50px 50px;
     background-color: #404040;
-    transform: scale(0.8);
-    transition: transform 300ms;
+    transform: scale(0.54,1);
+    transition: transform 1ms;
     transition-timing-function: linear;
 
 }
+.player_2{
+    background-image: url("SnakeT2.png");
+    background-size: 50px 50px;
+    background-color: #404040;
+    transform: scale(1,0.54);
+    transition: transform 1ms;
+    transition-timing-function: linear;
+}
+.player_3_dr{
+    background-image: url("ljkhl3_dr.png");
+}
+.player_3_dl{
+    background-image: url("ljkhl3_dl.png");
+}
+.player_3_ur{
+    background-image: url("ljkhl3_ur.png");
+}
+.player_3_ul{
+    background-image: url("ljkhl3_ul.png");
+}
+div[class*="player_3"]{
+    background-size: 50px 50px;
+    //background-color: red;
+    transform: scale(1);
+    transition: transform 1ms;
+    transition-timing-function: linear;
+}
+div[class*="player"]{
+    border-radius: 10px;
+    z-index: -2;
+}
+div[id*="player"]{
+    border-radius: 50px;
+    z-index: -1;
+}
 @keyframes move_right
 {
-	from {transform: translate(-50px);}
+	from {transform: translate(-60px);}
 	to {transform: translate(0px);}
 }
 @keyframes move_left
 {
-	from {transform: translate(50px);}
+	from {transform: translate(60px);}
+
 	to {transform: translate(0px);}
 }
 @keyframes move_up
 {
-	from {transform: translate(0px,50px);}
+	from {transform: translate(0px,60px);}
 	to {transform: translate(0px,0px);}
 }
 @keyframes move_down
 {
-	from {transform: translate(0px,-50px);}
+	from {transform: translate(0px,-60px);}
 	to {transform: translate(0px,0px);}
 }
 @keyframes glow
@@ -124,7 +166,7 @@ img{
 .buttons
 {
 	padding: 15px 5px 15px 5px;
-	margin: 15px 10px 20px 0px;
+	margin: 15px 10px 20px 10px;
 	background-color: #444444;
 	color: #20e31a;
 	border: none;
